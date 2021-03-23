@@ -70,7 +70,7 @@ jobs:
       working-directory: ./tmp/performance-analyzer-rca
       run: ./gradlew enableRca
     - name: Run integration tests
-      working-directory: ./tmp/pa
+      working-directory: ./tmp/performance-analyzer
       run: ./gradlew integTest --info --stacktrace -Dtests.enableIT=true
     - name: Build Docker image
       working-directory: ./tmp/performance-analyzer-rca
