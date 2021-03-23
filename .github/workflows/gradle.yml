@@ -65,12 +65,12 @@ jobs:
       run: sudo sysctl -w vm.max_map_count=262144
     - name: Build PA and run Unit Tests
       working-directory: ./tmp/pa
-      run: ./gradlew build -i
+      run: ./gradlew build -i --stacktrace
     - name: Spin up Docker cluster for integ testing
       working-directory: ./tmp/performance-analyzer-rca
       run: ./gradlew enableRca
     - name: Run integration tests
-      working-directory: ./tmp/performance-analyzer
+      working-directory: ./tmp/pa
       run: ./gradlew integTest --info --stacktrace -Dtests.enableIT=true
     - name: Build Docker image
       working-directory: ./tmp/performance-analyzer-rca
