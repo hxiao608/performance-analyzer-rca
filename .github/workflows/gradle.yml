@@ -72,3 +72,6 @@ jobs:
     - name: Run integration tests
       working-directory: ./tmp/pa
       run: ./gradlew integTest --info --stacktrace -Dtests.enableIT=true
+    - name: Build Docker image
+      working-directory: ./tmp/performance-analyzer-rca
+      run: ./gradlew buildDocker
