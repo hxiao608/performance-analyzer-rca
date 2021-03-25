@@ -80,7 +80,7 @@ publishing {
 ext {
     opendistroVersion = '1.13'
     isSnapshot = "true" == System.getProperty("build.snapshot", "true")
-    gitDefaultBranch = 'main'
+    gitDefaultBranch = 'haoru-ci-fix'
 }
 
 spotless {
@@ -365,7 +365,7 @@ task cloneGitRepo(type: GitClone) {
     }
 
     def destination = file(paDir)
-    uri = "https://github.com/hxiao608/performance-analyzer.git"
+    uri = "https://github.com/opendistro-for-elasticsearch/performance-analyzer-rca.git"
     branch = gitDefaultBranch
     destinationPath = destination
     bare = false
