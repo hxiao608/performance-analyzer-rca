@@ -67,6 +67,8 @@ jobs:
     - name: Build PA and run Unit Tests
       working-directory: ./tmp/pa
       run: ./gradlew build -i --stacktrace
+    - name: Docker Login
+      uses: docker/login-action@v1.8.0
     - name: Spin up Docker cluster for integ testing
       working-directory: ./tmp/performance-analyzer-rca
       run: ./gradlew enableRca --stacktrace

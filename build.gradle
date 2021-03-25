@@ -404,13 +404,6 @@ task copyAllArtifacts(type: Copy) {
     from(rcaArtifacts)
     from(paArtifacts)
     into(dockerArtifactsDir)
-
-    println "dockerBuildDir: " + dockerBuildDir
-    println "dockerArtifactsDir: " + dockerArtifactsDir
-    println "dockerArtifacts: " + dockerArtifacts
-    println "rcaArtifacts: " + rcaArtifacts
-    println "paArtifacts: " + paArtifacts
-    println "projectPathStr: " + projectPathStr
 }
 
 task copyReaderMetricsFiles(type: Copy) {
