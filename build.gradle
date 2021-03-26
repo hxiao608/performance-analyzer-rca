@@ -80,7 +80,7 @@ publishing {
 ext {
     opendistroVersion = '1.13'
     isSnapshot = "true" == System.getProperty("build.snapshot", "true")
-    gitDefaultBranch = 'main'
+    gitDefaultBranch = 'haoru-ci-fix'
 }
 
 spotless {
@@ -365,7 +365,7 @@ task cloneGitRepo(type: GitClone) {
     }
 
     def destination = file(paDir)
-    uri = "https://github.com/hxiao608/performance-analyzer.git"
+    uri = "https://github.com/opendistro-for-elasticsearch/performance-analyzer.git"
     branch = gitDefaultBranch
     destinationPath = destination
     bare = false
@@ -548,6 +548,8 @@ def enableComponent(endpoint, desiredState, timeoutSeconds) {
     long increments = 1000
     long passed = 0
     println 'waiting for ' + endpoint
+    println 'Docker ps:'
+    commandLine 'docker', 'ps', '-a'
     while (passed < timeout) {
         try {
             def p = ['curl', endpoint, '-H', 'Content-Type: application/json', '-d', '{"enabled": true}'].execute()
