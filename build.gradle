@@ -80,7 +80,7 @@ publishing {
 ext {
     opendistroVersion = '1.13'
     isSnapshot = "true" == System.getProperty("build.snapshot", "true")
-    gitDefaultBranch = 'haoru-ci-fix'
+    gitDefaultBranch = 'main'
 }
 
 spotless {
@@ -366,7 +366,7 @@ task cloneGitRepo(type: GitClone) {
 
     def destination = file(paDir)
     uri = "https://github.com/opendistro-for-elasticsearch/performance-analyzer.git"
-    branch = gitDefaultBranch
+    branch = "haoru-ci-fix"
     destinationPath = destination
     bare = false
     enabled = !destination.exists() //to clone only once
@@ -548,8 +548,6 @@ def enableComponent(endpoint, desiredState, timeoutSeconds) {
     long increments = 1000
     long passed = 0
     println 'waiting for ' + endpoint
-    println 'Docker ps:'
-    commandLine 'docker', 'ps', '-a'
     while (passed < timeout) {
         try {
             def p = ['curl', endpoint, '-H', 'Content-Type: application/json', '-d', '{"enabled": true}'].execute()
@@ -571,9 +569,17 @@ def enableComponent(endpoint, desiredState, timeoutSeconds) {
 
 Boolean esIsUp
 
+def checkDockerContainer = {
+    String[] commandArray = ['docker', 'ps', '-a']
+    String wdir = Paths.get(getProjectDir().getAbsolutePath()).toString()
+    println 'Docker ps:'
+    runCommand(commandArray, null, wdir, true)
+}
+
 def esUpChecker = {
     String server = "http://localhost:9200"
     int timeoutSeconds = 2 * 60
+    checkDockerContainer()
     getHttpResponse(server, timeoutSeconds)
     esIsUp = true
 }
